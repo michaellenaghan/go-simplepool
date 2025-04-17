@@ -2,7 +2,7 @@
 
 [github.com/michaellenaghan/go-simplepool](https://github.com/michaellenaghan/go-simplepool) provides a concurrent generic object pool that efficiently manages expensive-to-create objects.
 
-- The pool maintains between `Min` and `Max` busy and idle objects
+- The pool maintains `Count` busy and idle objects
 - Idle objects are stored in a buffered channel
 - Idle objects are reused on a FIFO (first in, first out) basis; in other words, the least recently used object is reused first
 - When there are no idle objects, `Get()` calls wait for an object to be returned by `Put()`
