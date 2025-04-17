@@ -89,8 +89,8 @@ func (p *Pool[T]) Stop() {
 //
 // If the pool is stopping or stopped, Get returns an error.
 //
-// Otherwise, if there are idle objects, Get returns the most recently used
-// idle object (LIFO).
+// Otherwise, if there are idle objects, Get returns the least recently used
+// idle object (FIFO).
 //
 // Otherwise, Get waits for an object to be returned to the pool by Put.
 //
