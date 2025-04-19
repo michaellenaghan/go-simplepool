@@ -8,9 +8,9 @@ Package `simplepool` provides a concurrent, generic, fixed-capacity object pool.
 - When there are no idle objects, `Get()` calls wait for an object to be returned by `Put()`
 - Waiting `Get()` calls are served on a FIFO (first in, first out) basis
 
-Code is available at [github.com/michaellenaghan/go-simplepool](https://github.com/michaellenaghan/go-simplepool).
+The code is available at [github.com/michaellenaghan/go-simplepool](https://github.com/michaellenaghan/go-simplepool).
 
-Documentation is available at [pkg.go.dev/github.com/michaellenaghan/go-simplepool](https://pkg.go.dev/github.com/michaellenaghan/go-simplepool).
+The documentation is available at [pkg.go.dev/github.com/michaellenaghan/go-simplepool](https://pkg.go.dev/github.com/michaellenaghan/go-simplepool).
 
 ## Installation
 
