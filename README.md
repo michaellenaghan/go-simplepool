@@ -1,12 +1,14 @@
 # go-simplepool
 
-[github.com/michaellenaghan/go-simplepool](https://github.com/michaellenaghan/go-simplepool) provides a concurrent generic object pool that efficiently manages expensive-to-create objects.
+Package `simplepool` provides a concurrent, generic, fixed-capacity object pool. It maintains a fixed number of objects throughout the pool's lifetime, reusing the same instances without growing or shrinking based on demand. For a more dynamic variable-capacity alternative, consider https://github.com/michaellenaghan/go-pool.
 
 - The pool maintains `Count` busy and idle objects
 - Idle objects are stored in a buffered channel
 - Idle objects are reused on a FIFO (first in, first out) basis; in other words, the least recently used object is reused first
 - When there are no idle objects, `Get()` calls wait for an object to be returned by `Put()`
 - Waiting `Get()` calls are served on a FIFO (first in, first out) basis
+
+Code is available at [github.com/michaellenaghan/go-simplepool](https://github.com/michaellenaghan/go-simplepool).
 
 Documentation is available at [pkg.go.dev/github.com/michaellenaghan/go-simplepool](https://pkg.go.dev/github.com/michaellenaghan/go-simplepool).
 
