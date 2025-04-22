@@ -76,12 +76,12 @@ func (p *Pool[T]) Stop() {
 		return
 	default:
 		close(p.stopping)
-	}
 
-	for range cap(p.idle) {
-		object := <-p.idle
-		if p.destroyFunc != nil {
-			p.destroyFunc(object)
+		for range cap(p.idle) {
+			object := <-p.idle
+			if p.destroyFunc != nil {
+				p.destroyFunc(object)
+			}
 		}
 	}
 }
@@ -90,9 +90,7 @@ func (p *Pool[T]) Stop() {
 //
 // (If the error is not nil the object will be the zero value of the type T.)
 //
-// If the pool is stopping or stopped, Get returns an error.
-//
-// Otherwise, if there are idle objects, Get returns the least recently used
+// If there are idle objects, Get returns the least recently used
 // idle object (FIFO).
 //
 // Otherwise, Get waits for an object to be returned to the pool by Put.
