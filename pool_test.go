@@ -12,6 +12,54 @@ import (
 	"github.com/michaellenaghan/go-simplepool"
 )
 
+func BenchmarkGetPut(b *testing.B) {
+	b.Run("Sequential", func(b *testing.B) {
+		pool, err := simplepool.New(
+			simplepool.Config[int]{
+				Count:   10,
+				NewFunc: func() (int, error) { return 0, nil },
+			},
+		)
+		if err != nil {
+			b.Fatalf("Failed to create pool: %v\n", err)
+		}
+		defer pool.Stop()
+
+		for b.Loop() {
+			obj, err := pool.Get(b.Context())
+			if err != nil {
+				b.Errorf("Failed to get object: %v\n", err)
+				continue
+			}
+			pool.Put(obj)
+		}
+	})
+
+	b.Run("Parallel", func(b *testing.B) {
+		pool, err := simplepool.New(
+			simplepool.Config[int]{
+				Count:   10,
+				NewFunc: func() (int, error) { return 0, nil },
+			},
+		)
+		if err != nil {
+			b.Fatalf("Failed to create pool: %v\n", err)
+		}
+		defer pool.Stop()
+
+		b.RunParallel(func(pb *testing.PB) {
+			for pb.Next() {
+				obj, err := pool.Get(b.Context())
+				if err != nil {
+					b.Errorf("Failed to get object: %v\n", err)
+					continue
+				}
+				pool.Put(obj)
+			}
+		})
+	})
+}
+
 func ExamplePool_concurrentGetAndPut() {
 	simplepool, err := simplepool.New(
 		simplepool.Config[int]{
